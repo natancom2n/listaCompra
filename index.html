@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <!--- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <title>Estacionamento</title>
+    <title>Lista de Compra</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 </head>
 
 <body onload="mostraPatio()">     
     <div class="container">
         <div class="header clearfix">
-            <h3>Estacionamento <small>por: Moskinha</small></h3>
+            <h3>Lista Compras <small>por: Moskinha</small></h3>
                 <div class="jumbotron">
                     <form id="formulario">
                         <div class="form-group">
-                            <label>Modelo do Veículo</label>
-                            <input type="text" id="modeloCar" class="form-control">
+                            <label>Item</label>
+                            <input type="text" id="labelItem" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label>Placa do Veículo</label>
-                            <input type="text" id="placaCar" class="form-control">
+                            <label>Preço</label>
+                            <input type="text" id="labelPrice" class="form-control">
                         </div>
                         <button type="submit" class="btn btn-primary">Adicionar</button>
                     </form>
@@ -31,9 +31,9 @@
                     <table class="table table-hover">
                         <thead >
                             <tr>
-                                <th>Modelo</th>
-                                <th>Placa</th>
-                                <th>Entrada</th>
+                                <th>Item</th>
+                                <th>Preco</th>
+                                <th>Data</th>
                                 <th>Finalizar</th>
                             </tr>
                         </thead>

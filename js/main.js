@@ -1,20 +1,33 @@
 document.getElementById('formulario').addEventListener('submit', cadastrarVeiculo);
 
 function cadastrarVeiculo(e){
-    var modeloCar = document.getElementById('modeloCar').value;
-    var placaCar =  document.getElementById('placaCar').value;
+    var labelItem = document.getElementById('labelItem').value;
+    var labelPrice =  document.getElementById('labelPrice').value;
     //console.log(modeloCar, placaCar);
 
     //pegar hora:
     var time = new Date();
 
-    //criar novo obj
-    carro = {
-        modelo: modeloCar,
-        placa: placaCar,
-        hora: time.getHours(),
-        minutos: time.getMinutes()
+    if(!labelItem ){
+        alert("Preencha o nome do item");
+        return false;
     }
+
+    //criar novo obj
+    //carro = {
+    //    modelo: modeloCar,
+    //    price: placaCar,
+        //hora: time.getHours(),
+        //minutos: time.getMinutes()
+    //}
+        produto = {
+            item: labelItem,
+            price: labelPrice,
+            dia: time.getDay(),
+            mes: time.getMonth() 
+
+        }
+    
     //console.log(carro)
 
     //armazenar dados no próprio navegador ( como banco de dados)
@@ -26,17 +39,17 @@ function cadastrarVeiculo(e){
     //remover um item
     //localStorage.removeItem('teste');
 
-    if(localStorage.getItem('patio2')== null){
-        var carros = [];
-        carros.push(carro);
+    if(localStorage.getItem('carrinho')== null){
+        var produtos = [];
+        produtos.push(produto);
         //fazer com que o conteúdo do objeto retorne uma string
-        localStorage.setItem('patio2', JSON.stringify(carros));
+        localStorage.setItem('carrinho', JSON.stringify(produtos));
     }else{
         //abaixo está novamente retornando de sting par obj
-        var carros = JSON.parse( localStorage.getItem('patio2'));
-        carros.push(carro);
+        var produtos = JSON.parse( localStorage.getItem('carrinho'));
+        produtos.push(produto);
         //aqui passando como string novamente
-        localStorage.setItem('patio2', JSON.stringify(carros));
+        localStorage.setItem('carrinho', JSON.stringify(produtos));
     }
     document.getElementById('formulario').reset();
 
@@ -45,35 +58,35 @@ function cadastrarVeiculo(e){
     e.preventDefault();
 }
 
-function apagarVeiculo(placa){
-    var carros = JSON.parse(localStorage.getItem('patio2'));
-    for (var i=0; i<carros.length; i++){
-        if(carros[i].placa == placa){
-            carros.splice(i, 1);
+function apagarProduto(item){
+    var produtos = JSON.parse(localStorage.getItem('carrinho'));
+    for (var i=0; i<produtos.length; i++){
+        if(produtos[i].item == item){
+            produtos.splice(i, 1);
         }
-        localStorage.setItem('patio2' , JSON.stringify(carros));
+        localStorage.setItem('carrinho' , JSON.stringify(produtos));
     }
     mostraPatio();
 }
 
 function mostraPatio(){
-    var carros = JSON.parse(localStorage.getItem('patio2'));
-    var carrosResultado = document.getElementById('resultados');
+    var produtos = JSON.parse(localStorage.getItem('carrinho'));
+    var produtosResultado = document.getElementById('resultados');
 
-    carrosResultado.innerHTML = '';
+    produtosResultado.innerHTML = '';
     
-    for (var i = 0; i < carros.length; i++){
+    for (var i = 0; i < produtos.length; i++){
         //pegando os dados 
-        var modelo = carros[i].modelo;
-        var placa = carros[i].placa;
-        var hora = carros[i].hora;
-        var minutos = carros[i].minutos;
+        var item = produtos[i].item;
+        var price = produtos[i].price;
+        var dia = produtos[i].dia;
+        var mes = produtos[i].mes;
 
         //colocandos os dados no html(preenchendo)
-        carrosResultado.innerHTML += '<tr><td>' + modelo + 
-                            '</td><td>' + placa +
-                            '</td><td>' + hora + ':' + minutos +
-                            '</td><td><button class="btn btn-danger" onclick= "apagarVeiculo(\'' + placa + '\')">Excluir</button></td>' + 
+        produtosResultado.innerHTML += '<tr><td>' + item + 
+                            '</td><td>' + price +
+                            '</td><td>' + dia + '/' + mes +
+                            '</td><td><button class="btn btn-danger" onclick= "apagarProduto(\'' + item + '\')">Excluir</button></td>' + 
                             '</tr>'
                                 
     }
